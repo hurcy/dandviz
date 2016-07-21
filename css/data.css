@@ -19,9 +19,41 @@ line.slope-line-meast{
 line.slope-line-africa{
 	stroke: #d62728;
 }
+line.slope-line-i-s{
+    stroke: #0000cc;
+    stroke-opacity: 1;
+}
+line.slope-line-i{
+    stroke: #0000cc;
+    stroke-opacity: 0.2;
+}
+line.slope-line-d-s{
+    stroke: #990000;
+    stroke-opacity: 1;
+}
+line.slope-line-d{
+    stroke: #990000;
+    stroke-opacity: 0.2;
+}
+
 text.slope-label{
     fill:black;
     font: 13px Arial;
+}
+.rankup{
+    color:#0000cc;
+    font: 30px Arial;
+    font-weight: bold;
+}
+.rankdown{
+    color:#990000;
+    font: 30px Arial;
+    font-weight: bold;
+}
+.rank{
+    color:black;
+    font: 30px Arial;
+    font-weight: bold;
 }
 
 text.slope-label-headers{

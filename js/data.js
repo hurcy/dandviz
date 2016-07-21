@@ -79,9 +79,9 @@ d3.custom = {};
 d3.custom.slopegraph = function(data) {
 
     var opts = {
-        width: 650,
+        width: 450,
         height: 900,
-        margin: {top: 20, right: 50, bottom: 50, left: 250},
+        margin: {top: 50, right: 60, bottom: 50, left: 60},
         labelLength: 70
     };
     function exports(selection) {
@@ -92,6 +92,9 @@ d3.custom.slopegraph = function(data) {
 
             var parent = d3.select(this);
             var svg = parent.selectAll("svg.chart-root").data([0]);
+            if (!svg.empty())
+                return;
+
             svg.enter().append("svg").attr("class", "chart-root")
                     .append('g').attr('class', 'chart-group');
             svg.attr({width: opts.width, height: opts.height});
@@ -181,6 +184,7 @@ createAccessors = function(visExport) {
     }
 };
 
+
 unadjust_mscrore = [];
 adjust_mscore = [];
 countries_w_escs = [];
@@ -192,37 +196,120 @@ math3q = [];
 math4q = [];
 obssc = [];
 meansc = [];
-
+mapdata = {};
 var unadjusted_detail = d3.select("#unadjusted_detail").classed("hidden", true);
 var adjusted_detail = d3.select("#adjusted_detail").classed("hidden", true);
 
-d3.csv("data/pisa2.csv", function(error, pisa)
-{
-    pisa.forEach(function(d)
-    {   
+var data = {};
+function drawMap(target) {
+    console.log(mapdata);
+    var basic_choropleth = new Datamap({
+        scope: 'world',
+        element: document.getElementById(target),
+        projection: 'mercator',
+        height: 600,
+        fills: {
+            defaultFill: "#afafaf",
+            oecd: "#7fcc66",
+            partner: "#7f66cc"
+        },
+        data: mapdata/*{
+            USA: { fillKey: "oecd" },
+            JPN: { fillKey: "oecd" },
+            ITA: { fillKey: "oecd" },
+            CRI: { fillKey: "oecd" },
+            KOR: { fillKey: "oecd" },
+            DEU: { fillKey: "oecd" },
+        }*/
+        });
 
-        if (d['country_w_escs'] != 'OECD average') {
-            countries_w_escs.push(d['country_w_escs']);
-            unadjust_mscrore.push(Number(d['unadjust_mscrore'])-1);
-            adjust_mscore.push(Number(d['adjust_mscore'])-1);
-            math1q.push(Number(d['math_1q']));
-            math2q.push(Number(d['math_2q']));
-            math3q.push(Number(d['math_3q']));
-            math4q.push(Number(d['math_4q']));
-            obssc.push(Number(d['obs_mscore']));    
-            meansc.push(Number(d['mean_mscore'])); 
-        }
+}
+function drawMapLegent() {
+    var svg = d3.selectAll("#maplegend svg");
 
-    });
+    if (!svg.empty()) 
+        return;
+    svg = d3.select("#maplegend")
+            .append("svg")
+            .attr("width", 600)
+            .attr("height", 70);
+    var continentLegend = d3.scale.ordinal()
+                  .domain(["OECD", "Partner countries", "Others"])
+                  .range(["#7fcc66",  "#7f66cc", "#afafaf" ]);
+    svg.append("g")
+       .attr("class", "legendOrdinal")
+       .attr("transform", "translate(" + 30 + "," + 20 + ")");
 
-    var data = {
-      "data":[unadjust_mscrore, adjust_mscore],
-      "label":[countries_w_escs]
-    };
+    var legendOrdinal = d3.legend.color()
+      .shape("path", d3.svg.symbol().type("circle").size(300)())
+      .orient('horizontal')
+      .shapePadding(80)
+      .scale(continentLegend);
+    svg.select(".legendOrdinal")
+       .call(legendOrdinal);
+}
+function drawLegend () {
+    // clear and redraw
+    var svg = d3.selectAll("#legend svg");
 
-    drawLegend ();
+    if (!svg.empty()) 
+        return;
+
+    svg = d3.select("#legend")
+            .append("svg")
+            .attr("width", 600)
+            .attr("height", 70);
+    var continentLegend = d3.scale.ordinal()
+                  .domain(["America", "Asia", "Europe", "Oceania", "Middle East", "Africa"])
+                  .range(colorProfiles_c);
+                  
+    svg.append("g")
+       .attr("class", "legendOrdinal")
+       .attr("transform", "translate(" + 100 + "," + 35 + ")");
+    
+
+    var legendOrdinal = d3.legend.color()
+      .shape("path", d3.svg.symbol().type("circle").size(300)())
+      .orient('horizontal')
+      .shapePadding(40)
+      .scale(continentLegend);
+      
+
+    svg.select(".legendOrdinal")
+       .call(legendOrdinal);
+
+    svg.selectAll(".cell")
+       .on("mouseover", function(d, i) {
+            colorProfiles.forEach(function(d)
+            {
+                if (d != colorProfiles[i])
+                    d3.selectAll("."+d).style("opacity", 0.2);
+            })
+        })
+        .on("mouseout", function(d, i) {
+            colorProfiles.forEach(function(d)
+            {
+                if (d != colorProfiles[i])
+                    d3.selectAll("."+d).style("opacity", 1);
+            })
+        });
+
+    // legent description
+    svg.append("g")
+       .append('text')
+       .attr("font-family", "sans-serif")
+       .attr("font-size", "14px")
+       .attr("font-weight", "bold")
+       .attr({'text-anchor': 'begin'})
+       .attr("transform", "translate(" + 0 + "," + 50 + ")")
+       .text('Continent');
+}
+
+function drawSlopeGraph(data, target) {
+    
     var slopeGraph = d3.custom.slopegraph();
-    d3.select('#graph1')
+
+    d3.select(target)
       .datum(data)
       .call(slopeGraph);
  
@@ -233,117 +320,150 @@ d3.csv("data/pisa2.csv", function(error, pisa)
                 .on("mouseover", mouseover)
                 .on("mouseout", mouseout);
 
-    function drawLegend () {
-        var svg = d3.select("#legend")
-                    .append("svg")
-                    .attr("width", 600)
-                    .attr("height", 100);
-        var continentLegend = d3.scale.ordinal()
-                      .domain(["America", "Asia", "Europe", "Oceania", "Middle East", "Africa"])
-                      .range(colorProfiles_c);
-                      
-        svg.append("g")
-           .attr("class", "legendOrdinal")
-           .attr("transform", "translate(" + 270 + "," + 50 + ")");
-        
-
-        var legendOrdinal = d3.legend.color()
-          .shape("path", d3.svg.symbol().type("circle").size(300)())
-          .orient('horizontal')
-          .shapePadding(40)
-          .scale(continentLegend);
-          
-
-        svg.select(".legendOrdinal")
-           .call(legendOrdinal);
-
-        svg.selectAll(".cell")
-           .on("mouseover", function(d, i) {
-                colorProfiles.forEach(function(d)
-                {
-                    if (d != colorProfiles[i])
-                        d3.selectAll("."+d).style("opacity", 0.2);
-                })
-            })
-            .on("mouseout", function(d, i) {
-                colorProfiles.forEach(function(d)
-                {
-                    if (d != colorProfiles[i])
-                        d3.selectAll("."+d).style("opacity", 1);
-                })
-            });
-
-        // legent description
-        svg.append("g")
-           .append('text')
-           .attr("font-family", "sans-serif")
-           .attr("font-size", "14px")
-           .attr("font-weight", "bold")
-           .attr({'text-anchor': 'begin'})
-           .attr("transform", "translate(" + (250) + "," + 25 + ")")
-           .text('Continent');
-    }
+    
 
     function mouseover(d)
+    {
+        d3.select('.chart-group').classed("active", true);
         {
-            d3.select('.chart-group').classed("active", true);
-            {
-                projection.classed("inactive", function(p) { 
-                    return p !== d; });
-                country_labels.classed("inactive", function(p) { 
-                    return p !== d; });
-                country_labels.classed("active", function(p) { 
-                    return p === d; });
-            }
-
-            //Get the mouse x/y, then augment for the both panel
-            details = d3.select('.left_labels.active');
-            // d3.mouse(container) does not work.
-            var unadjusted_detail_x   = Number(details.attr('x')) - 110;
-            var unadjusted_detail_y   = Number(details.attr('y')) + 300;
-            details = d3.select('.right_labels.active');
-            var adjusted_detail_x   = Number(details.attr('x')) + 340;
-            var adjusted_detail_y   = Number(details.attr('y')) + 340;
-            var idx = d[0];
-
-            // Set boundary to display tool tip
-            d3.select("#unadjusted_detail")
-                .style("left", unadjusted_detail_x + "px")
-                .style("top", unadjusted_detail_y + "px")
-                .select("#country")
-                .text(countries_w_escs[idx]);
-            d3.select("#unadjusted_detail #ms")
-                .text("Math Observed mean     : " + obssc[idx]);    
-            d3.select("#unadjusted_detail #m1")
-                .text("Math Top Quarter       : " + math1q[idx]);
-            d3.select("#unadjusted_detail #m2")
-                .text("Math 2nd Quarter       : " + math2q[idx]);
-            d3.select("#unadjusted_detail #m3")
-                .text("Math 3rd Quarter       : " + math3q[idx]);
-            d3.select("#unadjusted_detail #m4")
-                .text("Math 4th Quarter       : " + math4q[idx]);
-            d3.select("#unadjusted_detail").classed("hidden", false);
-
-            d3.select("#adjusted_detail")
-                .style("left", adjusted_detail_x  + "px")
-                .style("top", adjusted_detail_y + "px")
-                .select("#country")
-                .text(countries_w_escs[idx]);
-
-            d3.select("#adjusted_detail #msa")
-                .text("Adjusted Math score       : " + meansc[idx]);
-            d3.select("#adjusted_detail").classed("hidden", false);
+            projection.classed("inactive", function(p) { 
+                return p !== d; });
+            country_labels.classed("inactive", function(p) { 
+                return p !== d; });
+            country_labels.classed("active", function(p) { 
+                return p === d; });
         }
 
-        function mouseout(d)
-        {
-            // hide detail panel when move out
-            d3.select("#unadjusted_detail").classed("hidden", true);
-            d3.select("#adjusted_detail").classed("hidden", true);
-            d3.select('.chart-group').classed("active", false);
-            projection.classed("inactive", false);
-            country_labels.classed("inactive", false);
-            country_labels.classed("active", false);
+        details = d3.select('.left_labels.active');
+        // d3.mouse(container) does not work.
+        var unadjusted_detail_x   = 600;
+        var unadjusted_detail_y   = 350;
+        details = d3.select('.right_labels.active');
+        var adjusted_detail_x   =   850;
+        var adjusted_detail_y   =  350;
+        var idx = d[0];
+
+        var rankmsg, rankcls = "rank", rankchanged = d[0] - d[1];
+        if (rankchanged < 0) {
+            rankmsg = rankchanged*(-1) + " Down";
+            rankcls = "rankdown";
+        } else if(rankchanged == 0) {
+            rankmsg = "Same";
+        } else {
+            rankmsg = rankchanged + " Up";
+            rankcls = "rankup";
+        }
+        // Set boundary to display tool tip
+        d3.select("#unadjusted_detail")
+            .style("left", unadjusted_detail_x + "px")
+            .style("top", unadjusted_detail_y + "px")
+            .select("#country")
+            .text(countries_w_escs[idx]);
+        d3.select("#unadjusted_detail #ms")
+            .text("mean     : " + obssc[idx]);    
+        d3.select("#unadjusted_detail #m1")
+            .text("Math Top Quarter       : " + math1q[idx]);
+        d3.select("#unadjusted_detail #m2")
+            .text("Math 2nd Quarter       : " + math2q[idx]);
+        d3.select("#unadjusted_detail #m3")
+            .text("Math 3rd Quarter       : " + math3q[idx]);
+        d3.select("#unadjusted_detail #m4")
+            .text("Math 4th Quarter       : " + math4q[idx]);
+        d3.select("#unadjusted_detail").classed("hidden", false);
+
+        d3.select("#adjusted_detail")
+            .style("left", adjusted_detail_x  + "px")
+            .style("top", adjusted_detail_y + "px")
+            .select("#country")
+            .text(countries_w_escs[idx]);
+
+        d3.select("#adjusted_detail #msa")
+            .text(meansc[idx]);
+        d3.select("#adjusted_detail #rk")
+            .text(rankmsg)
+            .attr("class", rankcls);
+        d3.select("#adjusted_detail").classed("hidden", false);
+    }
+
+    function mouseout(d)
+    {
+        // hide detail panel when move out
+        d3.select("#unadjusted_detail").classed("hidden", true);
+        d3.select("#adjusted_detail").classed("hidden", true);
+        d3.select('.chart-group').classed("active", false);
+        projection.classed("inactive", false);
+        country_labels.classed("inactive", false);
+        country_labels.classed("active", false);
+    }
+}
+
+d3.csv("data/pisa2.csv", function(error, pisa)
+{
+    pisa.forEach(function(d)
+    {   
+        if (d['country_w_escs'] != 'OECD average') {
+            countries_w_escs.push(d['country_w_escs']);
+            unadjust_mscrore.push(Number(d['unadjust_mscrore'])-1);
+            adjust_mscore.push(Number(d['adjust_mscore'])-1);
+            math1q.push(Number(d['math_1q']));
+            math2q.push(Number(d['math_2q']));
+            math3q.push(Number(d['math_3q']));
+            math4q.push(Number(d['math_4q']));
+            obssc.push(Number(d['obs_mscore']));    
+            meansc.push(Number(d['mean_mscore'])); 
+            if (d['oecd'] == 1) 
+                mapdata[d['ccode']] = {"fillKey" : "oecd"}
+            else
+                mapdata[d['ccode']] = {"fillKey" : "partner"}
         }
 
+    });
+
+    data = {
+      "data":[unadjust_mscrore, adjust_mscore],
+      "label":[countries_w_escs]
+    };  
+    drawMapLegent();
+    drawMap('map');
+    $("a[href='#g1']").on('shown.bs.tab', function(e) {
+        
+    });
+    $("a[href='#g2']").on('shown.bs.tab', function(e) {
+        drawLegend ();
+        drawSlopeGraph(data, "#graph1");
+        d3.selectAll(".slope-line")
+            .attr("class", function(d) {
+                cn = countries_w_escs[d[0]];
+                c = colorProfiles[continentMap[countrylists[cn]]]; 
+                return c + ' slope-line'
+            });
+    });
+    $("a[href='#g3']").on('shown.bs.tab', function(e) {
+        drawSlopeGraph(data, "#graph2");
+        d3.selectAll(".slope-line")
+            .attr("class", function(d, i) { 
+                slope = d[0] - d[1]
+                if (slope > 10)
+                    return "slope-line-i-s"  + ' slope-line'
+                else if (slope < 10 & slope > 0)
+                    return "slope-line-i"  + ' slope-line'
+                else if (slope <= 0)
+                    return "slope-line-d"  + ' slope-line'
+                });
+    });
+
+    $("a[href='#g4']").on('shown.bs.tab', function(e) {
+        drawSlopeGraph(data, "#graph3");
+        d3.selectAll(".slope-line")
+            .attr("class", function(d, i) { 
+                slope = d[0] - d[1]
+                if (slope > 0)
+                    return "slope-line-i"  + ' slope-line'
+                else if (slope <= 0 & slope > -10)
+                    return "slope-line-d"  + ' slope-line'
+                else if (slope <= -10) 
+                    return "slope-line-d-s"  + ' slope-line'
+                
+                });
+    });
 });
