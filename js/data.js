@@ -202,10 +202,24 @@ var adjusted_detail = d3.select("#adjusted_detail").classed("hidden", true);
 
 var data = {};
 function drawMap(target) {
-    console.log(mapdata);
+    //console.log(mapdata);
     var basic_choropleth = new Datamap({
         scope: 'world',
         element: document.getElementById(target),
+        geographyConfig: {
+            highlightBorderColor: '#bada55',
+            popupTemplate: function(geography, data) {
+                if(data) 
+                    return '<div class="hoverinfo">' + geography.properties.name + 
+                    '<table><tr><td>Total population:</td><td align=right>' +  data.total_population +'</td></tr>' +
+                    '<tr><td>Sample population:</td><td align=right>'+ data.sample_population +'</td></tr>'+
+                    '<tr><td>Sampling ratio:</td><td align=right>' + data.sampling_ratio + '</td></tr></table></div>';
+                else
+                     return '<div class="hoverinfo">' + geography.properties.name + '</div>'
+            },
+            highlightBorderWidth: 3
+        },
+
         projection: 'mercator',
         height: 600,
         fills: {
@@ -213,41 +227,34 @@ function drawMap(target) {
             oecd: "#7fcc66",
             partner: "#7f66cc"
         },
-        data: mapdata/*{
-            USA: { fillKey: "oecd" },
-            JPN: { fillKey: "oecd" },
-            ITA: { fillKey: "oecd" },
-            CRI: { fillKey: "oecd" },
-            KOR: { fillKey: "oecd" },
-            DEU: { fillKey: "oecd" },
-        }*/
+        data: mapdata
         });
-
+    basic_choropleth.legend();
 }
-function drawMapLegent() {
-    var svg = d3.selectAll("#maplegend svg");
+// function drawMapLegent() {
+//     var svg = d3.selectAll("#maplegend svg");
 
-    if (!svg.empty()) 
-        return;
-    svg = d3.select("#maplegend")
-            .append("svg")
-            .attr("width", 600)
-            .attr("height", 70);
-    var continentLegend = d3.scale.ordinal()
-                  .domain(["OECD", "Partner countries", "Others"])
-                  .range(["#7fcc66",  "#7f66cc", "#afafaf" ]);
-    svg.append("g")
-       .attr("class", "legendOrdinal")
-       .attr("transform", "translate(" + 30 + "," + 20 + ")");
+//     if (!svg.empty()) 
+//         return;
+//     svg = d3.select("#maplegend")
+//             .append("svg")
+//             .attr("width", 600)
+//             .attr("height", 70);
+//     var continentLegend = d3.scale.ordinal()
+//                   .domain(["OECD", "Partner countries", "Others"])
+//                   .range(["#7fcc66",  "#7f66cc", "#afafaf" ]);
+//     svg.append("g")
+//        .attr("class", "legendOrdinal")
+//        .attr("transform", "translate(" + 30 + "," + 20 + ")");
 
-    var legendOrdinal = d3.legend.color()
-      .shape("path", d3.svg.symbol().type("circle").size(300)())
-      .orient('horizontal')
-      .shapePadding(80)
-      .scale(continentLegend);
-    svg.select(".legendOrdinal")
-       .call(legendOrdinal);
-}
+//     var legendOrdinal = d3.legend.color()
+//       .shape("path", d3.svg.symbol().type("circle").size(300)())
+//       .orient('horizontal')
+//       .shapePadding(80)
+//       .scale(continentLegend);
+//     svg.select(".legendOrdinal")
+//        .call(legendOrdinal);
+// }
 function drawLegend () {
     // clear and redraw
     var svg = d3.selectAll("#legend svg");
@@ -415,6 +422,9 @@ d3.csv("data/pisa2.csv", function(error, pisa)
                 mapdata[d['ccode']] = {"fillKey" : "oecd"}
             else
                 mapdata[d['ccode']] = {"fillKey" : "partner"}
+            mapdata[d['ccode']]['total_population'] = d['total_population']
+            mapdata[d['ccode']]['sample_population'] = d['sample_population']
+            mapdata[d['ccode']]['sampling_ratio'] = d['sampling_ratio']
         }
 
     });
@@ -423,7 +433,7 @@ d3.csv("data/pisa2.csv", function(error, pisa)
       "data":[unadjust_mscrore, adjust_mscore],
       "label":[countries_w_escs]
     };  
-    drawMapLegent();
+    //drawMapLegent();
     drawMap('map');
     $("a[href='#g1']").on('shown.bs.tab', function(e) {
         
