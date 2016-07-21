@@ -21,6 +21,8 @@ These are the only two countries that would descend more than 10 positions in th
 
 # Design
 
+[Visualization][visualization]
+
 First of all, I used choropleth map to address overall participating countries and economies in the dataset. With popup of each country, I presented total and sample population of PISA. 
 
 Second, I applied slopegraph, because it is a good way to visualize ranking changes when socio-economic status were taken into account.
@@ -77,6 +79,7 @@ Ok, hope it helps :) Other than this, very cool visualization!﻿
 - [Basic Reusable Slopegraph][slopegraphex]
 - [Datamap][datamap]
 
+[visualization]: https://hurcy.github.io/dandviz/        "Visualization"
 [pisa]: https://www.oecd.org/pisa/keyfindings/pisa-2012-results-volume-ii.htm "PISA 2012 reports"
 [slopegraph]:  http://www.storytellingwithdata.com/blog/2014/03/more-on-slopegraphs  "More on slopegraphs"
 [vizex1]:    https://knopthakorn.github.io/dataviz/    "The effect of teacher practices and attitudes"
