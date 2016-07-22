@@ -1,120 +1,143 @@
-line.slope-line{
-    stroke:black
-}
-line.slope-line-america{
-	stroke: #1f77b4;
-}
-line.slope-line-asia{
-	stroke: #ff7f0e;
-}
-line.slope-line-europe{
-	stroke: #2ca02c;
-}
-line.slope-line-osceania{
-	stroke: #16182B;
-}
-line.slope-line-meast{
-	stroke: #9467bd;
-}
-line.slope-line-africa{
-	stroke: #d62728;
-}
-line.slope-line-i-s{
-    stroke: #0000cc;
-    stroke-opacity: 1;
-}
-line.slope-line-i{
-    stroke: #0000cc;
-    stroke-opacity: 0.2;
-}
-line.slope-line-d-s{
-    stroke: #990000;
-    stroke-opacity: 1;
-}
-line.slope-line-d{
-    stroke: #990000;
-    stroke-opacity: 0.2;
+line.slope-line {
+    stroke: #000;
 }
 
-text.slope-label{
-    fill:black;
-    font: 13px Arial;
-}
-.rankup{
-    color:#0000cc;
-    font: 30px Arial;
-    font-weight: bold;
-}
-.rankdown{
-    color:#990000;
-    font: 30px Arial;
-    font-weight: bold;
-}
-.rank{
-    color:black;
-    font: 30px Arial;
-    font-weight: bold;
+line.slope-line-america {
+    stroke: #1f77b4;
 }
 
-text.slope-label-headers{
-    fill:black;
-    font: 13px Arial;
-    font-weight: bold;
+line.slope-line-asia {
+    stroke: #ff7f0e;
 }
+
+line.slope-line-europe {
+    stroke: #2ca02c;
+}
+
+line.slope-line-osceania {
+    stroke: #16182B;
+}
+
+line.slope-line-meast {
+    stroke: #9467bd;
+}
+
+line.slope-line-africa {
+    stroke: #d62728;
+}
+
+line.slope-line-i-s {
+    stroke: #00c;
+    stroke-opacity: 1;
+}
+
+line.slope-line-i {
+    stroke: #00c;
+    stroke-opacity: .2;
+}
+
+line.slope-line-d-s {
+    stroke: #900;
+    stroke-opacity: 1;
+}
+
+line.slope-line-d {
+    stroke: #900;
+    stroke-opacity: .2;
+}
+
+text.slope-label {
+    fill: #000;
+    font: 13px Arial;
+}
+
+.rankup {
+    color: #00c;
+    font: 30px Arial;
+    font-weight: 700;
+}
+
+.rankdown {
+    color: #900;
+    font: 30px Arial;
+    font-weight: 700;
+}
+
+.rank {
+    color: #000;
+    font: 30px Arial;
+    font-weight: 700;
+}
+
+text.slope-label-headers {
+    fill: #000;
+    font: 13px Arial;
+    font-weight: 700;
+}
+
 .slope-label.active {
-  font-weight: bold;
-}
-.slope-line.inactive {
-  stroke: #ccc;
-  stroke-opacity: .2;
-  stroke-width: 2px;
+    font-weight: 700;
 }
 
+.slope-line.inactive {
+    stroke: #ccc;
+    stroke-opacity: .2;
+    stroke-width: 2px;
+}
 
 #unadjusted_detail {
-        position: absolute;
-        width: 180px;
-        height: auto;
-        padding: 10px;
-        background-color: rgba(244, 244, 244, 0.7);
-        -webkit-border-radius: 10px;
-        -moz-border-radius: 10px;
-        border-radius: 10px;
-        pointer-events: none;
+    position: absolute;
+    width: 180px;
+    height: auto;
+    padding: 10px;
+    background-color: rgba(244,244,244,0.7);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    pointer-events: none;
 }
 
 #unadjusted_detail.hidden {
-        display: none;
+    display: none;
 }
 
 #unadjusted_detail p {
-    color:#000;
-        margin: 0;
-        font-family: Arial;
-        font-size: 12px;
-        line-height: 15px;
+    color: #000;
+    margin: 0;
+    font-family: Arial;
+    font-size: 12px;
+    line-height: 15px;
 }
 
 #adjusted_detail {
-        position: absolute;
-        width: 180px;
-        height: auto;
-        padding: 10px;
-        background-color: rgba(244, 244, 244, 0.7);
-        -webkit-border-radius: 10px;
-        -moz-border-radius: 10px;
-        border-radius: 10px;
-        pointer-events: none;
+    position: absolute;
+    width: 180px;
+    height: auto;
+    padding: 10px;
+    background-color: rgba(244,244,244,0.7);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    pointer-events: none;
 }
 
 #adjusted_detail.hidden {
-        display: none;
+    display: none;
 }
 
 #adjusted_detail p {
-    color:#000;
-        margin: 0;
-        font-family: Arial;
-        font-size: 12px;
-        line-height: 15px;
+    color: #000;
+    margin: 0;
+    font-family: Arial;
+    font-size: 12px;
+    line-height: 15px;
+}
+
+blockquote {
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 40px;
+    margin-right: 40px;
+    font-size: 14px;
 }

@@ -1,92 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>PISA Visualization</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/data.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <script src="https://d3js.org/d3.v3.min.js"></script>
-  <script src="https://d3js.org/topojson.v1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.5.0/d3-legend.min.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/datamaps.world.min.js"></script>
-
+    <title>Socio-economic status and performance of mathematics</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/data.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+    </script>
+    <script src="https://d3js.org/d3.v3.min.js">
+    </script>
+    <script src="https://d3js.org/topojson.v1.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.5.0/d3-legend.min.js">
+    </script>
+    <script src="js/data.js">
+    </script>
+    <script src="js/datamaps.world.min.js">
+    </script>
 </head>
 <body>
-<div class="container">
-
-<div class="page-header">
-  <span>July 13, 2016</span>
-  <h1>Socio-economic status and performance of mathematics<br><small>Which countries beat the socio-ecomonic circumstances?</small></h1>
-
-</div>
-<div id="content">
-    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-        <li class="active"><a href="#g1" data-toggle="tab">1</a></li>
-        <li><a href="#g2" data-toggle="tab">2</a></li>
-        <li><a href="#g3" data-toggle="tab">3</a></li>
-        <li><a href="#g4" data-toggle="tab">4</a></li>
-    </ul>
-
-    <div id="my-tab-content" class="tab-content">
-        <div class="tab-pane active" id="g1">
-        <p>Programme for International Student Assessment (PISA) measures performance only among 15-year-olds who are enrolled in education.</p><p> 65 countries and economies have participated in PISA 2012. This visualization focuses on performance of mathematics. </p>
-        <span id="maplegend"></span>
-        <div id="map" style="position: relative; width: 80%; max-height: 650px;"></div>
+    <div class="container">
+        <div class="page-header">
+            <span>July 13, 2016</span>
+            <h1>Socio-economic status and performance of mathematics<br>
+            <small>Which countries beat the socio-ecomonic circumstances?</small></h1>
         </div>
-        <div class="tab-pane" id="g2">
-        <p>What would be the average performance of education system if all students had the OECD-average socio-economic status(ESCS*)?</p>
-        <p>Most education systems perform similarly before and after accounting for socio-economic status.</p>
-        <span id="legend"></span>
-        <p id="graph1"></p>
-       </div>
-       <div class="tab-pane" id="g3">
-        These are the only three countries that would climb more than 10 positions in their performance rankings if socio-economic status were taken into account. 
-        <ul>
-          <li>Portugal would perform above the OECD average. </li>
-          <li>Turkey’s performance would also improve from below average to average.</li>
-          <li>Among the partner economies, Vietnam would markedly improve its rankings. </li>
-        </ul>
-        <p id="graph2"></p>
-       </div>
-      <div class="tab-pane" id="g4">
-        These are the only two countries that would descend more than 10 positions in their performance rankings if socio-economic status were taken into account. 
-        <ul>
-          <li>Denmark would worsen below the OECD average. </li>
-          <li>Iceland's performance would also worsen from above to below to average.</li>
-        </ul>
-        <p id="graph3"></p>
-       </div>
+        <div id="content">
+            <ul class="nav nav-tabs" data-tabs="tabs" id="tabs">
+                <li class="active">
+                    <a data-toggle="tab" href="#g1">1</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#g2">2</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#g3">3</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#g4">4</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="my-tab-content">
+                <div class="tab-pane active" id="g1">
+                    <p>PISA measures performance only among 15-year-olds who are enrolled in education. PISA 2012 covers 65 countries and economies,including all 34 OECD countries and 31 partner countries and economies. In addition, PISA measures index of economic, social and cultural status, so called ESCS. It was created on the basis of the following variables: the highest levels of occupational status of the student's parents, the highest level of education of the student's parents, family wealth, etc.</p>
+                    <p>
+                    While many socio-economically disadvantaged achieve at high levels on the PISA assessment, <b>socio-economic status is still a strong predictor of performance in many countries.</b> Performance gap due to socio-economic status varies across countries. Socio-economically disadvantaged students and schools tend to get lower score than their disadvantaged peers by larger margins than between any other two groups of students. PISA result report said:
+                    <blockquote> Still, socio-economic status is <b><big>NOT DESTINY</big></b>: many countries and economies that have seen improvements in their mean performance on PISA have also managed to weaken the link between socio-economic status and performance. </blockquote>
+                    </p>
+                    <div id="map" style="position: relative; width: 80%; max-height: 650px;"></div>
+                </div>
+                <div class="tab-pane" id="g2">
+                    <p>So, I would like to response the question: <b><big>Which countries beat the socio-ecomonic circumstances?</big></b>
+                    </p>
+                    <p>
+                    To do this, we need to assume that all students had the same OECD-average socio-economic status(ESCS*), and then compare the math scores between countries. Most education systems perform similarly before and after accounting for socio-economic status. However, some ranks are changed considerably. I selected the cases that more than 10 positions changed, you can find out the next tabs. 
+                    </p>
+                    <span id="legend"></span>
+                    <p id="graph1"></p>
+                </div>
+                <div class="tab-pane" id="g3">
+                    These are the only three countries that would climb more than 10 positions in their performance rankings if socio-economic status were taken into account.
+                    <ul>
+                        <li><b>Portugal</b> would perform above the OECD average.</li>
+                        <li><b>Turkey</b>’s performance would also improve from below average to average.</li>
+                        <li>Among the partner economies, <b>Vietnam</b> would markedly improve its rankings.</li>
+                    </ul>
+                    <p id="graph2"></p>
+                </div>
+                <div class="tab-pane" id="g4">
+                    These are the only two countries that would descend more than 10 positions in their performance rankings if socio-economic status were taken into account.
+                    <ul>
+                        <li><b>Denmark</b> would worsen below the OECD average.</li>
+                        <li><b>Iceland</b>'s performance would also worsen from above to below to average.</li>
+                    </ul>
+                    <p id="graph3"></p>
+                </div>
+            </div>
+            <div>
+                <div class="hidden" id="unadjusted_detail">
+                    <p><strong><span>Observed math score</span></strong></p>
+                    <p><b><span id="ms">m</span></b></p>
+                    <p><span id="m1">m</span></p>
+                    <p><span id="m2">m</span></p>
+                    <p><span id="m3">m</span></p>
+                    <p><span id="m4">m</span></p>
+                </div>
+                <div class="hidden" id="adjusted_detail">
+                    <p><strong><span>Adjusted math score</span></strong></p>
+                    <p><b><span id="msa">m</span></b></p>
+                    <p><b><span id="rk">m</span></b></p>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <br><br>
+            <p><small>* OECD: Organisation for Economic Cooperation and Development</small></p>
+            <p><small>* ESCS refers to the PISA index of economic, social and cultural status. It was created on the
+            basis of the following variables: the International Socio-Economic Index of Occupational Status (ISEI); the
+            highest level of education of the student's parents, converted into years of schooling.</small></p>
+        </div>
     </div>
-        <div>
-            
-            <div id="unadjusted_detail" class="hidden">
-              <p><strong><span>Observed math score</span></strong></p>
-              <!-- <p><strong><span id="country">X</span></strong></p> -->
-              <p><b><span id="ms">m</span></b></p>
-              <p><span id="m1">m</span></p>
-              <p><span id="m2">m</span></p>
-              <p><span id="m3">m</span></p>
-              <p><span id="m4">m</span></p>
-              
-           </div>
-           <div id="adjusted_detail" class="hidden">
-              <p><strong><span>Adjusted math score</span></strong></p>
-              <!-- <p><strong><span id="country">X</span></strong></p> -->
-              <p><b><span id="msa">m</span></b></p>
-              <p><b><span id="rk">m</span></b></p>
-             
-           </div>
-        </div>
-    
-</div>
-<div id="footer">
-<p><small>* ESCS refers to the PISA index of economic, social and cultural status. It was created on the basis of the following variables: the International Socio-Economic Index of Occupational Status (ISEI); the highest level of education of the student's parents, converted into years of schooling.</small></p>
-</div>
-
 </body>
 </html>
-
