@@ -1,34 +1,48 @@
 # Summary
 
-I visualized relationship of socio-economic status and performance of mathematics from Programme for International Student Assessment dataset. The exploratory question is: Which countries beat the socio-ecomonic circumstances?
 
-PISA measures performance only among 15-year-olds who are enrolled in education. PISA 2012, which I used as dataset, covers 65 countries and economies,including all 34 OECD countries and 31 partner countries and economies. You can hover to check total and sample population on the choropleth map.
+[Visualization][visualization]
 
-Performance gap due to socio-economic status varies across countries. What would be the average performance of education system if all students had the OECD-average socio-economic status(ESCS*)?
+I visualized relationship of socio-economic status and performance of mathematics from Programme for International Student Assessment(PISA) dataset. The explanatory question is: Which countries beat the socio-ecomonic circumstances?
 
-You can find the answer in the slopegraph. Ranking of observed math scores is on the left side, and ranking of adjusted math scores is on the right. Most education systems perform similarly before and after accounting for socio-economic status. 
+PISA measures performance only among 15-year-olds who are enrolled in education. PISA 2012, which I used as dataset, covers 65 countries and economies,including all 34 OECD countries and 31 partner countries and economies. In addition, PISA measures index of economic, social and cultural status, so called ESCS. It was created on the basis of the following variables: the highest levels of occupational status of the student's parents, the highest level of education of the student's parents, family wealth, etc.
+
+While many socio-economically disadvantaged achieve at high levels on the PISA assessment, socio-economic status is still a strong predictor of performance in many countries. Performance gap due to socio-economic status varies across countries. Socio-economically disadvantaged students and schools tend to get lower score than their disadvantaged peers by larger margins than between any other two groups of students. PISA result report said:
+> Still, socio-economic status is not destiny: many countries and economies that have seen improvements in their mean performance on PISA have also managed to weaken the link between socio-economic status and performance.
+
+So, I would like to response the question: **Which countries beat the socio-ecomonic circumstances?**  
+
+To do this, we need to assume that all students had the same OECD-average socio-economic status(ESCS*), and then compare the math scores between countries. Most education systems perform similarly before and after accounting for socio-economic status. However, some ranks are changed considerably. I selected the cases that more than 10 positions changed. 
 
 These are the only three countries that would climb more than 10 positions in their performance rankings if socio-economic status were taken into account.
 - Portugal would perform above the OECD average.
 - Turkey’s performance would also improve from below average to average.
 - Among the partner economies, Vietnam would markedly improve its rankings.
 
-These are the only two countries that would descend more than 10 positions in their performance rankings if socio-economic status were taken into account. 
+Also, these are the only two countries that would descend more than 10 positions in their performance rankings if socio-economic status were taken into account. 
 - Denmark would worsen below the OECD average.
 - Iceland's performance would also worsen from above to below to average.
 
-> ESCS refers to the PISA index of economic, social and cultural status. It was created on the basis of the following variables: the International Socio-Economic Index of Occupational Status (ISEI); the highest level of education of the student's parents, converted into years of schooling.
 
 # Design
 
-[Visualization][visualization]
+## Chart types
+First of all, I used **choropleth map** to address overall participating countries and economies in the dataset. With popup of each country, I presented total and sample population of PISA. 
 
-First of all, I used choropleth map to address overall participating countries and economies in the dataset. With popup of each country, I presented total and sample population of PISA. 
+Second, I applied **slopegraph**, because it is a good way to visualize ranking changes when socio-economic status were taken into account. You can find the answer in the slopegraph. Ranking of observed math scores is on the left side, and ranking of adjusted math scores is on the right. 
 
-Second, I applied slopegraph, because it is a good way to visualize ranking changes when socio-economic status were taken into account.
+## Visual encodings
+I used colors to visualize participaing countires and economies on the map.
+In the slopegraph, colors are used to present continents differences, and ranking up/down. 
 
-# Feedback 
-I revised my visualization for three times. 
+## Layouts
+I used navigation tabs. Because this is martini-glass style of visualization: starting from exploratory visualization, viewers can clearly see that some countires perform better or worse given their ESCS as the navigation tabs progress.
+
+## Legends
+I added legend in the map to show categories of participating countires. In the first slopegraph, legend is to emphasis specific continent. You can hover the legend to see it.
+
+# Feedback and Iteration
+I revised my visualization for two times. 
 Here are details:
 - used popup on the choropleth map
 - separated slopegraphs into three part: overall, rank up, rank down.
@@ -36,6 +50,8 @@ Here are details:
 - updated description in each graph
 
 ## Feedbacks of first sketch
+Please check "iter1" folder.
+
 ### feedback1
 > The biggest question is how do you account for socioeconomic status? Is what ever metric you are using concrete? Does the fact that Iceland lowers mean anything? Or is it just because they have a high socioeconomic status? If I am to believe in the metric am I to believe that Vietnam, Portugal and Turkey have good education systems buy poor access?﻿
 
@@ -65,6 +81,8 @@ Ok, hope it helps :) Other than this, very cool visualization!﻿
 > Best regards and keep on with the good job!﻿
 
 ## Feedbacks of second sketch
+Please check "iter2" folder.
+
 ### feedback1
 > I like how you've broken out the slope chart into three charts to show the overall, focus on the ones who do better, and focus on the ones who do worse. I was actually just reading about a similar tactic in this blog post: http://stats.blogoverflow.com/2011/12/andyw-says-small-multiples-are-the-most-underused-data-visualization/
 > The map is a little confusing. I'm not sure what OECD means, or really what I'm looking at on the map. I can mouse over countries to get the name, but nothing else pops out. I'm not sure what you're trying to accomplish. Perhaps you could pair the map side-by-side with the slope charts so that when you mouse over a country, it highlights that country's line on the chart and shows the data that goes with it?﻿
