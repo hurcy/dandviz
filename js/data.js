@@ -333,10 +333,10 @@ function drawSlopeGraph(data, target) {
         details = d3.select('.left_labels.active');
         // d3.mouse(container) does not work.
         var unadjusted_detail_x = 600;
-        var unadjusted_detail_y = 350;
+        var unadjusted_detail_y = 450;
         details = d3.select('.right_labels.active');
         var adjusted_detail_x = 850;
-        var adjusted_detail_y = 350;
+        var adjusted_detail_y = 450;
         var idx = d[0];
         var rankmsg, rankcls = "rank",
             rankchanged = d[0] - d[1];
