@@ -366,7 +366,7 @@ function drawSlopeGraph(data, target) {
     }
 }
 
-d3.csv("data/pisa2.csv", function(error, pisa)
+d3.csv("data/pisa.csv", function(error, pisa)
 {
     pisa.forEach(function(d)
     {   

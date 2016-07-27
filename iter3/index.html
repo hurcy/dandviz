@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Socio-economic status and performance of mathematics</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/data.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+    </script>
+    <script src="https://d3js.org/d3.v3.min.js">
+    </script>
+    <script src="https://d3js.org/topojson.v1.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.5.0/d3-legend.min.js">
+    </script>
+    <script src="https://datamaps.github.io/scripts/0.5.6/datamaps.all.js">
+    </script>
+    <script src="js/data.js">
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <span>July 13, 2016</span>
+            <h1>Socio-economic status and performance of mathematics<br>
+            <small>What would be the average performance if all students had the OECD-average socio-economic status?</small></h1>
+        </div>
+        <div id="content">
+            <ul class="nav nav-tabs" data-tabs="tabs" id="tabs">
+                <li class="active">
+                    <a data-toggle="tab" href="#g1">1</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#g2">2</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#g3">3</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#g4">4</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="my-tab-content">
+                <div class="tab-pane active" id="g1">
+                    <p>PISA measures performance only among 15-year-olds who are enrolled in education. In 2012, PISA
+                    covers 65 countries and economies,including all 34 OECD countries and 31 partner countries and
+                    economies. PISA also measures index of economic, social and cultural status, so called ESCS. It was
+                    created on the basis of the following variables: the highest levels of occupational status of the
+                    student's parents, the highest level of education of the student's parents, family wealth, etc.</p>
+                    <p>According to the PISA report, we can see socio-economic status and performance in two
+                    aspects:</p>
+                    <ul>
+                        <li>How well socio-economic status predicts performance</li>
+                        <li>How much impact of socio-economic status to performance</li>
+                    </ul>
+                    <p>The strength of the relationship between performance and socio-economic status varies
+                    across countries, so it is hard to compare the performance between countries. On average
+                    across OECD countries, a more socio-economically advantaged student scores 39 points higher
+                    in mathematics – the equivalent of nearly one year of schooling – than a less-advantaged
+                    student.</p>
+                    <p>In addition, the countries with strong relationship between performance and
+                    socio-economic status also tend to have big performance gap across socio-economic status.
+                    On the other hand, the countires with weak relationship between them are likely have small
+                    performance gap across socio-economic status.</p>
+                    <p>To compare math performance between different education systems, this visualization
+                    focuses on comparisons based on the performance of students with similar socio-economic
+                    status.</p>
+                    <div id="map"></div>
+                </div>
+                <div class="tab-pane" id="g2">
+                    <p>To do this, we need to assume that all students had the same OECD-average socio-economic status,
+                    and then compare the math scores between countries.</p>
+                    <p>Most education systems perform similarly before and after accounting for socio-economic status.
+                    However, some ranks are changed considerably. I selected the cases that more than 10 positions
+                    changed, you can find out the next tabs.</p>
+                    <div id="legend"></div><span id="graph1"></span>
+                </div>
+                <div class="tab-pane" id="g3">
+                    If socio-economic status were taken into account, rankings of mnay countries are increased. In
+                    particular, three countries that would climb more than 10 positions in their performance rankings.
+                    <ul>
+                        <li><b>Portugal</b> would perform above the OECD average.</li>
+                        <li><b>Turkey</b>’s performance would also improve from below average to average.</li>
+                        <li>Among the partner economies, <b>Vietnam</b> would markedly improve its rankings.</li>
+                    </ul><span id="graph2"></span>
+                </div>
+                <div class="tab-pane" id="g4">
+                    If socio-economic status were taken into account, rankings of mnay countries are decreased. In
+                    particular, two countries that would descend more than 10 positions in their performance rankings.
+                    <ul>
+                        <li><b>Denmark</b> would worsen below the OECD average.</li>
+                        <li><b>Iceland</b>'s performance would also worsen from above to below to average.</li>
+                    </ul><span id="graph3"></span>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <br>
+            <br>
+            <p><small>* OECD: Organisation for Economic Cooperation and Development</small></p>
+            <p><small>* Total population: the total number of 15-year-olds according to the most recent available
+            information.<br>
+            * Sample population: the number of students who take PISA performance tests<br>
+            * Coverage index: the coverage of 15-year-olds population by sampling.</small></p>
+        </div>
+    </div>
+</body>
+</html>

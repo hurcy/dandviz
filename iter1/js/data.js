@@ -193,7 +193,7 @@ meansc = [];
 var unadjusted_detail = d3.select("#unadjusted_detail").classed("hidden", true);
 var adjusted_detail = d3.select("#adjusted_detail").classed("hidden", true);
 
-d3.csv("data/pisa2.csv", function(error, pisa)
+d3.csv("data/pisa.csv", function(error, pisa)
 {
     pisa.forEach(function(d)
     {   
